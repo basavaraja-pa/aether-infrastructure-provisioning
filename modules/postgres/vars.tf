@@ -15,3 +15,4 @@ variable "db_instance_type" {
 
 variable "google_project" {}
 variable "google_region" {}
+variable "datbase_instance_name" {}
