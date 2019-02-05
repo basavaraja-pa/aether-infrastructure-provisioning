@@ -4,3 +4,4 @@ variable "namespace" {
 
 variable "domain" {}
 variable "email_address" { default="devops@ehealthafrica.org" }
+variable "aws_access_key_id" {}
