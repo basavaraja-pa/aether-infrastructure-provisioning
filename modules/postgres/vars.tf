@@ -8,7 +8,7 @@ variable "database_size" {
 
 variable "db_instance_type" {
   description = "In the form of custom-CPUS-MEM, number of CPUs and memory for custom machine. https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type#specifications"
-  default     = "db-custom-2-3840"
+  default = "db-custom-2-3840"
 }
 
 variable "google_project" {}
