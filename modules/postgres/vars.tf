@@ -15,5 +15,6 @@ variable "google_project" {}
 variable "google_region" {}
 variable "database_instance_name" {}
 variable "namespace" {}
-variable "postgres_root_username" { default="postgres" }
+variable "postgres_root_username" { default="root" }
 variable "postgres_root_password" {}
+variable "databases" { type="list" }
