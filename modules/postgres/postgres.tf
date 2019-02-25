@@ -1,5 +1,5 @@
 resource "google_sql_database_instance" "master" {
-  name = "${var.google_project}-${var.database_instance_name}"
+  name = "${var.google_project}-${var.database_instance_name}-v8"
   database_version = "${var.database_version}"
   region = "${var.google_region}"
   project = "${var.google_project}"
@@ -34,7 +34,7 @@ resource "google_sql_database" "dbs" {
 }
 
 resource "google_service_account" "sql" {
-  account_id = "postgres-${var.google_project}"
+  account_id = "postgres${var.google_project}"
 }
 
 resource "google_project_iam_binding" "sql" {

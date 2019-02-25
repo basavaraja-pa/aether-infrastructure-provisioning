@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: basic
+  namespace: axxonet
+spec:
+  backend:
+    serviceName: aether-odk
+    servicePort: 80
+
+
+
+

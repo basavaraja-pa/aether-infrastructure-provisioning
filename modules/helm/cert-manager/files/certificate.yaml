@@ -1,0 +1,20 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+ name: aether-certificate
+ namespace: axxonet
+spec:
+ secretName: aether-com-tls
+ commonName: '*.aether-axxonet.com'
+ dnsNames:
+ - aether-axxonet.com
+ acme:
+   config:
+   - dns01:
+       provider: clouddns
+     domains:
+     - '*.aether-axxonet.com'
+     - aether-axxonet.com
+ issuerRef:
+   name: letsencrypt
+   kind: ClusterIssuer

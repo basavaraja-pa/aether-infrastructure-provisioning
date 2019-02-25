@@ -4,7 +4,7 @@ module "gke_cluster" {
   google_zone = "${var.google_region}-b"
   google_region = "${var.google_region}-b"
   google_project = "${var.google_project}"
-  cluster_name = "foo" # UPDATE ME
+  cluster_name = "axxonetcluster" # UPDATE ME
   initial_node_count = 1
   admin_user = "admin"
   additional_zones = "${var.google_region}-c"
@@ -17,9 +17,9 @@ module "gke_node_pool" {
   google_zone = "${var.google_region}-b"
   pool_name = "app-pool"
   node_count = 1
-  cluster_node_type = "n1-standard-1"
+  cluster_node_type = "n1-standard-2"
   google_project = "${var.google_project}"
-  cluster_node_disk_size = 20
+  cluster_node_disk_size = 40
   node_pool_role = "app"
 }
 
@@ -28,7 +28,7 @@ module "postgres" {
   google_project = "${var.google_project}"
   google_region = "${var.google_region}"
   postgres_root_password = "${var.postgres_root_password}"
-  database_instance_name = "${var.google_project}-v23"
+  database_instance_name = "${var.google_project}"
   databases = ["${var.project}_odk","${var.project}_gather","${var.project}_kernel"]
   namespace = "${var.project}"
 }
@@ -37,20 +37,20 @@ module "postgres" {
 module "aether_odk_storage" {
   source = "../modules/gcs_bucket"
   gcs_bucket_name = "aether-odk-example"
-  gcs_bucket_credentials = "aether-odk-example-gcs-credentials"
+  gcs_bucket_credentials = "${var.namespace}-bucket-credentials"
   namespace = "${var.namespace}"
 }
 
 module "aether_kernel_storage" {
   source = "../modules/gcs_bucket"
   gcs_bucket_name = "aether-kernel-example"
-  gcs_bucket_credentials = "aether-kernel-example-gcs-credentials"
+  gcs_bucket_credentials = "${var.namespace}-bucket-credentials"
   namespace = "${var.namespace}"
 }
 
 # DNS IAM auth
 module "iam-dns-aws" {
   source = "../modules/iam-dns-aws"
-  cluster_name = "${var.namespace}"
+  cluster_name = "axxonetcluster" # UPDATE ME
   domain = "${var.domain}"
 }

@@ -1,3 +1,60 @@
+resource "kubernetes_cluster_role_binding" "dashboard" {
+  metadata {
+    name = "kubernetes-dashboard-minimal"
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind = "ClusterRole"
+    name = "kubernetes-dashboard-minimal"
+  }
+  
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind = "ClusterRole"
+    name = "cluster-admin"
+  }
+
+
+
+  subject {
+    kind = "User"
+    name = "admin"
+    api_group = "rbac.authorization.k8s.io"
+    }
+
+  subject {
+    kind = "Group"
+    name = "system:serviceaccounts"
+    api_group = "rbac.authorization.k8s.io"
+    }
+
+  subject {
+    kind = "Group"
+    name = "system:authenticated"
+    api_group = "rbac.authorization.k8s.io"
+    }
+
+  subject {
+    kind = "Group"
+    name = "system:serviceaccounts:axxonet"
+    api_group = "rbac.authorization.k8s.io"
+    }
+
+  subject {
+    kind      = "ServiceAccount"
+    name      = "${kubernetes_service_account.dashboard.metadata.0.name}"
+    api_group = ""
+    namespace = "${kubernetes_service_account.dashboard.metadata.0.namespace}"
+  }
+}
+
+resource "kubernetes_service_account" "dashboard" {
+  metadata {
+    name = "kubernetes-dashboard-minimal"
+    namespace = "kube-system"
+  }
+}
+
 resource "kubernetes_role" "dashboard" {
   metadata {
     name = "minimal"
@@ -75,29 +132,7 @@ resource "kubernetes_role" "dashboard" {
   }
 }
 
-resource "kubernetes_cluster_role_binding" "dashboard" {
-  metadata {
-    name = "kubernetes-dashboard-minimal"
-  }
-  role_ref {
-    api_group = "rbac.authorization.k8s.io"
-    kind = "ClusterRole"
-    name = "kubernetes-dashboard-minimal"
-  }
-  subject {
-    kind      = "ServiceAccount"
-    name      = "${kubernetes_service_account.dashboard.metadata.0.name}"
-    api_group = ""
-    namespace = "${kubernetes_service_account.dashboard.metadata.0.namespace}"
-  }
-}
 
-resource "kubernetes_service_account" "dashboard" {
-  metadata {
-    name = "kubernetes-dashboard-minimal"
-    namespace = "kube-system"
-  }
-}
 
 resource "helm_release" "kubernetes-dashboard" {
   name      = "kubernetes-dashboard"
@@ -105,6 +140,7 @@ resource "helm_release" "kubernetes-dashboard" {
   namespace = "kube-system"
   keyring   = ""
 }
+
 
 resource "helm_release" "metrics" {
   name = "kubernetes-state-metrics"

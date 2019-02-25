@@ -4,21 +4,24 @@ resource "google_container_cluster" "primary" {
   zone    = "${var.google_zone}"
   project = "${var.google_project}"
   network = "default"
+  subnetwork = "default"
   initial_node_count = "${var.initial_node_count}"
-
+  enable_legacy_abac= "true"
   additional_zones = [
     "${split(",", "${var.additional_zones}")}",
   ]
 
   master_auth {
     username = "${var.admin_user}"
-    password = "${var.admin_password}"
+    password = "sdfsdfsdff3354435xdsfddgf"
   }
 
   # required if a new default pool is created
   remove_default_node_pool=true
 
 }
+
+
 
 # Kubernetes config template
 data "template_file" "config" {

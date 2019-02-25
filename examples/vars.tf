@@ -1,10 +1,10 @@
 variable "google_region" { default="europe-west1" }
-variable "google_zone" { default="europe-west1-c"}
+variable "google_zone" { default="europe-west1-b"}
 variable "admin_user" { default="admin" }
-variable "google_project" {}
-variable "admin_password" {}
-variable "project" { default="example" }
-variable "domain" { default="aethertest.org" }
+variable "google_project" {default="encouraging-key-198909"}
+variable "admin_password" {default="postgres"}
+variable "project" { default="aethertest" }
+variable "domain" { default="aether-axxonet.com" }
 variable "postgres_root_username" { default="postgres" }
-variable "postgres_root_password" {}
-variable "namespace" {}
+variable "postgres_root_password" { default="postgres" }
+variable "namespace" {default="axxonet"}
